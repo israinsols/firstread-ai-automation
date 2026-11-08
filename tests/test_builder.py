@@ -105,7 +105,7 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert 'href="https://firstread.co.uk/"' in post_html
     assert "Visit firstread.co.uk" in post_html
     assert "Visit the original publication at" in post_html
-    assert '<img class="cover" src="/images/firstread-co-uk-sample-guide.png"' in post_html
+    assert '<img class="cover" src="/images/firstread-co-uk-sample-guide.png?v=photos-2"' in post_html
     assert (public / "images" / "firstread-co-uk-sample-guide.png").is_file()
     assert (
         '<meta property="og:image" content="https://firstread.co.uk/images/firstread-co-uk-sample-guide.png">'
@@ -117,6 +117,10 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert 'href="https://firstread.co.uk/"' in home_html
     assert "Visit the original site · firstread.co.uk" in home_html
     assert "<h2>More to discover</h2>" in home_html
+    assert 'class="editorial-note"' in home_html
+    assert 'src="/static/images/food.jpg?v=photos-2"' in home_html
+    assert "Useful reads for everyday life." in home_html
+    assert 'href="/about/">Get to know Firstread' in home_html
     assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
     assert 'href="/firstread-co-uk-sample-guide/"' in home_html
     assert 'class="story-number" aria-hidden="true">01</span>' in home_html
@@ -254,7 +258,8 @@ def test_github_pages_project_path_prefixes_local_links(tmp_path):
     assert 'href="/firstread-ai-automation/pages-image-test/"' in home_html
     assert 'href="/firstread-ai-automation/static/site.css"' in home_html
     assert '<link rel="canonical" href="https://firstread.co.uk/firstread-ai-automation/">' in home_html
-    assert 'src="/firstread-ai-automation/images/pages-image-test.png"' in post_html
+    assert 'src="/firstread-ai-automation/images/pages-image-test.png?v=photos-2"' in post_html
+    assert 'src="/firstread-ai-automation/static/images/food.jpg?v=photos-2"' in home_html
     assert '<link rel="canonical" href="https://firstread.co.uk/firstread-ai-automation/pages-image-test/">' in post_html
     assert '<a class="skip" href="/firstread-ai-automation/#main">Skip to content</a>' in home_html
     assert "https://firstread.co.uk/firstread-ai-automation/sitemap.xml" in (

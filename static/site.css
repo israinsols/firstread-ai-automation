@@ -251,6 +251,34 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .card-description { margin: 10px 0 13px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
 .read-time { margin: 0; color: #85877f; font-size: .72rem; letter-spacing: .04em; }
+.editorial-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 78px);
+  margin-top: 76px;
+  padding: 48px;
+  border: 1px solid var(--line);
+  background: #eeebe3;
+}
+.editorial-note-image {
+  width: 100%;
+  aspect-ratio: 1.65;
+  object-fit: cover;
+}
+.editorial-note-copy h2 {
+  margin: 10px 0 16px;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.8vw, 3.3rem);
+  font-weight: 400;
+  letter-spacing: -.05em;
+  line-height: 1.08;
+}
+.editorial-note-copy > p:not(.section-kicker) {
+  color: var(--muted);
+  font-size: .96rem;
+}
+.editorial-note-copy .text-link { margin-top: 8px; }
 .empty-state { padding: 100px 0 120px; text-align: center; }
 .empty-mark { color: var(--accent); font-family: var(--serif); font-size: 4rem; }
 .empty-state h1 { font-family: var(--serif); font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 400; }
@@ -341,6 +369,7 @@ img { display: block; max-width: 100%; height: auto; }
   .lead-copy h2 { max-width: 620px; }
   .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 22px; }
   .story-section { padding-top: 48px; }
+  .editorial-note { gap: 24px; padding: 28px; }
   .taxonomy-hero { grid-template-columns: 1fr; gap: 22px; padding: 40px 0; }
   .taxonomy-image { order: -1; aspect-ratio: 1.75; }
 }
@@ -355,6 +384,8 @@ img { display: block; max-width: 100%; height: auto; }
   .lead-copy h2 { font-size: 2.55rem; }
   .lead-description { margin: 15px 0 18px; font-size: .95rem; }
   .taxonomy-hero { gap: 18px; margin-bottom: 26px; }
+  .editorial-note { grid-template-columns: 1fr; gap: 22px; margin-top: 48px; padding: 18px; }
+  .editorial-note-copy h2 { font-size: 2.45rem; }
   .taxonomy-copy h1 { font-size: 3.25rem; }
   .page-illustration { aspect-ratio: 1.65; margin-bottom: 28px; }
   .section-heading { align-items: end; }
