@@ -162,6 +162,7 @@ def _render_context(config: SiteConfig, template: str, **context: Any) -> str:
     )
     values = {
         "site_name": config.site_name,
+        "brand_url": "https://firstread.co.uk/",
         "language": config.language,
         "base_url": config.base_url,
         "base_path": config.base_path,
@@ -207,6 +208,7 @@ def _taxonomy_pages(
             page_posts = grouped_posts[(number - 1) * POSTS_PER_PAGE : number * POSTS_PER_PAGE]
             html = template.render(
                 site_name=config.site_name,
+                brand_url="https://firstread.co.uk/",
                 language=config.language,
                 base_path=config.base_path,
                 current_year=date.today().year,
@@ -411,6 +413,7 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
             "title": "404 - Page not found",
             "content_html": '<p>Sorry, this page is not available. <a href="/">Return to the homepage</a>.</p>',
         },
+        brand_url="https://firstread.co.uk/",
         site_illustration="/static/editorial-still-life.svg",
         json_ld=_json_ld_page(config, "Page not found", home_url, "Page not found"),
     )

@@ -102,6 +102,9 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert canonical in locations
     assert not any("unpublished-secret" in item for item in locations)
     assert f'<link rel="canonical" href="{canonical}">' in post_html
+    assert 'href="https://firstread.co.uk/"' in post_html
+    assert "Visit firstread.co.uk" in post_html
+    assert "Visit the original publication at" in post_html
     assert '<img class="cover" src="/images/firstread-co-uk-sample-guide.png"' in post_html
     assert (public / "images" / "firstread-co-uk-sample-guide.png").is_file()
     assert (
@@ -111,6 +114,8 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert "tracker.example" not in post_html
     assert "<title>Firstread.co.uk | Stories for a closer look</title>" in home_html
     assert "<h1>Stories for a<br><em>closer look.</em></h1>" in home_html
+    assert 'href="https://firstread.co.uk/"' in home_html
+    assert "Visit the original site · firstread.co.uk" in home_html
     assert "<h2>More to discover</h2>" in home_html
     assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
     assert 'href="/firstread-co-uk-sample-guide/"' in home_html
@@ -122,6 +127,7 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
         encoding="utf-8"
     )
     assert 'class="taxonomy-image"' in category_html
+    assert 'href="https://firstread.co.uk/"' in category_html
     assert 'src="/images/' in category_html
     assert "<nav" not in category_html
     about_html = (public / "about" / "index.html").read_text(encoding="utf-8")

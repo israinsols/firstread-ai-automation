@@ -20,13 +20,6 @@
   <meta name="twitter:title" content="{{ page_title }}">
   <meta name="twitter:description" content="{{ description }}">
   <meta name="twitter:image" content="{{ social_image }}">
-  <style>
-    :root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
-    *{box-sizing:border-box}body{margin:0;line-height:1.7}
-    .wrap{width:min(72rem,92%);margin-inline:auto}
-    a{color:inherit}img{max-width:100%;height:auto}
-    .skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:#fff;padding:.5rem}
-  </style>
   <link rel="stylesheet" href="/static/site.css">
   <script type="application/ld+json">{{ json_ld | tojson }}</script>
 </head>
@@ -34,9 +27,9 @@
   <a class="skip" href="/#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/" aria-label="{{ site_name }} home">
+      <a class="brand" href="{{ brand_url }}" aria-label="Visit Firstread.co.uk" target="_blank" rel="noopener noreferrer">
         <img src="/static/logo.svg" alt="" width="42" height="42">
-        <span>firstread<span class="brand-period">.</span></span>
+        <span>firstread<span class="brand-period">.co.uk</span></span>
       </a>
       <span class="edition-note">A magazine for curious minds</span>
     </div>
@@ -46,11 +39,11 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <a class="footer-brand" href="/" aria-label="{{ site_name }} home">
+      <a class="footer-brand" href="{{ brand_url }}" aria-label="Visit Firstread.co.uk" target="_blank" rel="noopener noreferrer">
         <img src="/static/logo.svg" alt="" width="30" height="30">
-        <span>&copy; {{ current_year }} {{ site_name }}</span>
+        <span>&copy; {{ current_year }} <strong>firstread.co.uk</strong></span>
       </a>
-      <span>Independent stories, thoughtfully told.</span>
+      <a class="footer-domain-link" href="{{ brand_url }}" target="_blank" rel="noopener noreferrer">Visit firstread.co.uk ↗</a>
     </div>
   </footer>
 </body>

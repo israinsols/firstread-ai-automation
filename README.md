@@ -9,11 +9,13 @@ Keyword research uses `firstread.co.uk` as its exact, highest-priority seed and 
 - Python 3.11+, Jinja2, Markdown-it (raw HTML disabled), frontmatter, SQLite, Requests, Pillow, python-dotenv, Google Auth, and pytest.
 - Google Autosuggest research with one-second request spacing, deduplication, and keyword scoring.
 - Gemini article drafts with three attempts and checks for length, keyword, FAQ, headings, placeholders, repeated paragraphs, and similarity. Every draft carries three fact-check notes.
-- Original, locally generated topic-themed editorial artwork for article covers and lightweight WebP story cards.
+- Locally stored Unsplash photographs matched to article topics, with lightweight WebP story cards.
 - Illustrated category pages, image-rich related stories, branded info-page artwork, and a matching Firstread logo/favicon.
 - A static, responsive, accessible site with clean URLs, categories/tags, pagination, internal links, table of contents, reading time, related posts, JSON-LD, canonical/Open Graph tags, XML sitemap, robots.txt, and RSS.
 - Sitemap, robots.txt, canonical URLs, and structured metadata for `https://firstread.co.uk`; optional IndexNow, Search Console, and Telegram/Facebook/Pinterest integrations.
 - `AUTO_PUBLISH=False` by default. Review every claim, source, link, and generated image before publication.
+
+Editorial photos are stored locally under `static/images/`, sourced from [Unsplash](https://unsplash.com/), and used under the [Unsplash License](https://unsplash.com/license). Topic-to-photo assignments use these source IDs: food `photo-1547592180-85f173990554`, phone `photo-1511707171634-5f897ff02aa9`, sport `photo-1517649763962-0c623066013b`, concert `photo-1501386761578-eac5c94b800a`, clock `photo-1501139083538-0139583c060f`, law `photo-1589829545856-d10d557cf95f`, and news `photo-1461749280684-dccba630e2f6`.
 
 ## 1. Set up Python and the project
 
