@@ -114,6 +114,8 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert "<h2>More to discover</h2>" in home_html
     assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
     assert 'href="/firstread-co-uk-sample-guide/"' in home_html
+    assert 'class="story-number" aria-hidden="true">01</span>' in home_html
+    assert 'class="story-number" aria-hidden="true">02</span>' in home_html
     assert "<nav" not in home_html
     assert 'aria-label="Main navigation"' not in post_html
     category_html = (public / "category" / "technology" / "index.html").read_text(

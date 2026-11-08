@@ -11,6 +11,7 @@
   <a class="lead-image" href="/{{ feature.slug }}/" aria-label="Read {{ feature.title }}">
     <img src="{{ feature.image_src }}" alt="" width="1200" height="630" fetchpriority="high">
     <span class="image-mark">The latest read <span aria-hidden="true">↗</span></span>
+    <span class="story-number" aria-hidden="true">01</span>
   </a>
   <div class="lead-copy">
     <p class="story-kicker">{{ feature.category }} <span>·</span> {{ feature.date }}</p>
@@ -31,6 +32,7 @@
       <a class="card-image" href="/{{ post.slug }}/" aria-label="Read {{ post.title }}">
         <img src="{{ post.thumbnail }}" alt="" width="400" height="210" loading="lazy">
         <span class="card-arrow" aria-hidden="true">↗</span>
+        <span class="story-number" aria-hidden="true">{{ "%02d"|format(loop.index + 1) }}</span>
       </a>
       <div class="card-body">
         <p class="story-kicker">{{ post.category }} <span>·</span> {{ post.date }}</p>
