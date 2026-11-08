@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>{{ heading }}</span></nav>
 <header class="section">
   <p class="eyebrow">{{ taxonomy }}</p>
   <h1>{{ heading }}</h1>
@@ -14,11 +13,4 @@
   </article>
   {% endfor %}
 </div>
-{% if pages > 1 %}
-<nav class="pagination" aria-label="Pagination">
-  {% if page_number > 1 %}<a href="{{ previous_url }}">← Newer</a>{% endif %}
-  <span>Page {{ page_number }} of {{ pages }}</span>
-  {% if page_number < pages %}<a href="{{ next_url }}">Older →</a>{% endif %}
-</nav>
-{% endif %}
 {% endblock %}

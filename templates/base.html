@@ -34,18 +34,10 @@
   <a class="skip" href="{{ base_path }}/#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/" aria-label="{{ site_name }} homepage">
+      <div class="brand">
         <img src="/static/logo.svg" alt="" width="40" height="40">
         <span>{{ site_name }}</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="/">Home</a>
-        {% for category in categories|default([]) %}
-        <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
-        {% endfor %}
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-      </nav>
+      </div>
     </div>
   </header>
   <main id="main" class="wrap">
@@ -54,10 +46,6 @@
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <span>&copy; {{ current_year }} {{ site_name }}</span>
-      <nav aria-label="Legal">
-        <a href="/privacy/">Privacy</a>
-        <a href="/disclaimer/">Disclaimer</a>
-      </nav>
     </div>
   </footer>
 </body>

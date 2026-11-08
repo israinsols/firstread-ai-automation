@@ -340,7 +340,7 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
         canonical=home_url,
         og_type="website",
         json_ld=website_json_ld(config),
-        posts=posts[:POSTS_PER_PAGE],
+        posts=posts,
         categories=categories,
         niche=config.niche,
     )

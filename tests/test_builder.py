@@ -110,15 +110,17 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     )
     assert "tracker.example" not in post_html
     assert "<title>Firstread.co.uk | News, Celebrity, Tech, Sport, Lifestyle, Law &amp; Food</title>" in home_html
-    assert "<h1>Firstread.co.uk: Celebrity, News, Tech, Sports, Lifestyle, Law and Food</h1>" in home_html
-    assert '<a href="/category/technology/">Technology</a>' in home_html
-    assert '<a href="/category/technology/">Technology</a>' in post_html
+    assert "<h1>All articles</h1>" in home_html
+    assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
+    assert 'href="/firstread-co-uk-sample-guide/"' in home_html
+    assert "<nav" not in home_html
+    assert 'aria-label="Main navigation"' not in post_html
     category_html = (public / "category" / "technology" / "index.html").read_text(
         encoding="utf-8"
     )
-    assert '<a href="/category/technology/">Technology</a>' in category_html
+    assert "<nav" not in category_html
     about_html = (public / "about" / "index.html").read_text(encoding="utf-8")
-    assert '<a href="/category/technology/">Technology</a>' in about_html
+    assert "<nav" not in about_html
     assert '<img src="/static/logo.svg" alt="" width="40" height="40">' in home_html
     assert (public / "static" / "logo.svg").is_file()
     assert "firstread.co.uk" in (public / "CNAME").read_text(encoding="utf-8")
@@ -233,7 +235,7 @@ def test_github_pages_project_path_prefixes_local_links(tmp_path):
         config.public_dir / "pages-image-test" / "index.html"
     ).read_text(encoding="utf-8")
 
-    assert 'href="/firstread-ai-automation/about/"' in home_html
+    assert 'href="/firstread-ai-automation/pages-image-test/"' in home_html
     assert 'href="/firstread-ai-automation/static/site.css"' in home_html
     assert 'src="/firstread-ai-automation/images/pages-image-test.png"' in post_html
     assert (config.public_dir / "images" / "pages-image-test.png").is_file()
