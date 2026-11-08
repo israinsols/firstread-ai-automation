@@ -9,6 +9,7 @@ Keyword research uses `firstread.co.uk` as its exact, highest-priority seed and 
 - Python 3.11+, Jinja2, Markdown-it (raw HTML disabled), frontmatter, SQLite, Requests, Pillow, python-dotenv, Google Auth, and pytest.
 - Google Autosuggest research with one-second request spacing, deduplication, and keyword scoring.
 - Gemini article drafts with three attempts and checks for length, keyword, FAQ, headings, placeholders, repeated paragraphs, and similarity. Every draft carries three fact-check notes.
+- Original, locally generated topic-themed editorial artwork for article covers and lightweight WebP story cards.
 - A static, responsive, accessible site with clean URLs, categories/tags, pagination, internal links, table of contents, reading time, related posts, JSON-LD, canonical/Open Graph tags, XML sitemap, robots.txt, and RSS.
 - Sitemap, robots.txt, canonical URLs, and structured metadata for `https://firstread.co.uk`; optional IndexNow, Search Console, and Telegram/Facebook/Pinterest integrations.
 - `AUTO_PUBLISH=False` by default. Review every claim, source, link, and generated image before publication.

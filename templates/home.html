@@ -1,25 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="latest-posts" class="section">
-  <div class="section-heading"><h1>All articles</h1><span>{{ posts|length }} published</span></div>
+<section class="masthead">
+  <p class="masthead-kicker">Independent UK magazine <span></span> Ideas for curious minds</p>
+  <h1>Stories for a<br><em>closer look.</em></h1>
+  <p>Fresh perspectives, useful answers and the details behind the stories shaping everyday life.</p>
+</section>
+{% if posts %}
+{% set feature = posts[0] %}
+<section class="lead-story" aria-label="Featured article">
+  <a class="lead-image" href="/{{ feature.slug }}/" aria-label="Read {{ feature.title }}">
+    <img src="{{ feature.image_src }}" alt="" width="1200" height="630" fetchpriority="high">
+    <span class="image-mark">The latest read <span aria-hidden="true">↗</span></span>
+  </a>
+  <div class="lead-copy">
+    <p class="story-kicker">{{ feature.category }} <span>·</span> {{ feature.date }}</p>
+    <h2><a href="/{{ feature.slug }}/">{{ feature.title }}</a></h2>
+    <p class="lead-description">{{ feature.meta_description }}</p>
+    <a class="text-link" href="/{{ feature.slug }}/">Read the story <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+<section id="latest-posts" class="section story-section">
+  <div class="section-heading">
+    <div><p class="section-kicker">From the editors</p><h2>More to discover</h2></div>
+    <span class="article-count">{{ posts|length }} stories</span>
+  </div>
   {% if posts %}
   <div class="post-grid">
-    {% for post in posts %}
+    {% for post in posts[1:] %}
     <article class="card">
-      <a class="card-image" href="/{{ post.slug }}/">
+      <a class="card-image" href="/{{ post.slug }}/" aria-label="Read {{ post.title }}">
         <img src="{{ post.thumbnail }}" alt="" width="400" height="210" loading="lazy">
+        <span class="card-arrow" aria-hidden="true">↗</span>
       </a>
       <div class="card-body">
-        <p class="eyebrow">{{ post.category }}</p>
+        <p class="story-kicker">{{ post.category }} <span>·</span> {{ post.date }}</p>
         <h3><a href="/{{ post.slug }}/">{{ post.title }}</a></h3>
-        <p>{{ post.meta_description }}</p>
-        <p class="muted">{{ post.date }} · {{ post.reading_time }} min read</p>
+        <p class="card-description">{{ post.meta_description }}</p>
+        <p class="read-time">{{ post.reading_time }} min read</p>
       </div>
     </article>
     {% endfor %}
   </div>
-  {% else %}
-  <p>New articles are being prepared. Check back soon.</p>
   {% endif %}
 </section>
+{% else %}
+<section class="empty-state"><span class="empty-mark">F.</span><h1>Something good is taking shape.</h1><p>Our first stories are on their way. Come back soon.</p></section>
+{% endif %}
 {% endblock %}

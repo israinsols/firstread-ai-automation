@@ -2,9 +2,9 @@
 {% block content %}
 <article class="article">
   <header class="article-header">
-    <p class="eyebrow">{{ post.category }}</p>
+    <p class="story-kicker">{{ post.category }} <span>·</span> {{ post.date }}</p>
     <h1>{{ post.title }}</h1>
-    <p class="muted">By {{ post.author }} · {{ post.date }} · {{ post.reading_time }} min read</p>
+    <p class="article-byline">Words by {{ post.author }} <span>·</span> {{ post.reading_time }} min read</p>
     <img class="cover" src="{{ post.image_src }}" alt="{{ post.title }}" width="1200" height="630" fetchpriority="high">
   </header>
   {% if toc %}
@@ -14,7 +14,7 @@
   </nav>
   {% endif %}
   <div class="article-content">{{ body_html|safe }}</div>
-  <p class="muted">Please verify important facts and current details before acting on them.</p>
+  <p class="article-note">A note from our editors: please verify important facts and current details before acting on them.</p>
 </article>
 {% if related %}
 <section class="section">

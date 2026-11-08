@@ -109,8 +109,9 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
         in post_html
     )
     assert "tracker.example" not in post_html
-    assert "<title>Firstread.co.uk | News, Celebrity, Tech, Sport, Lifestyle, Law &amp; Food</title>" in home_html
-    assert "<h1>All articles</h1>" in home_html
+    assert "<title>Firstread.co.uk | Stories for a closer look</title>" in home_html
+    assert "<h1>Stories for a<br><em>closer look.</em></h1>" in home_html
+    assert "<h2>More to discover</h2>" in home_html
     assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
     assert 'href="/firstread-co-uk-sample-guide/"' in home_html
     assert "<nav" not in home_html
@@ -121,7 +122,7 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert "<nav" not in category_html
     about_html = (public / "about" / "index.html").read_text(encoding="utf-8")
     assert "<nav" not in about_html
-    assert '<img src="/static/logo.svg" alt="" width="40" height="40">' in home_html
+    assert '<img src="/static/logo.svg" alt="" width="42" height="42">' in home_html
     assert (public / "static" / "logo.svg").is_file()
     assert "firstread.co.uk" in (public / "CNAME").read_text(encoding="utf-8")
     assert (public / "category" / "technology" / "page" / "2" / "index.html").is_file()

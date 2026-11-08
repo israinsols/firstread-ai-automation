@@ -332,10 +332,9 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
     home_html = _render_context(
         config,
         "home.html",
-        page_title=f"{config.site_name} | News, Celebrity, Tech, Sport, Lifestyle, Law & Food",
+        page_title=f"{config.site_name} | Stories for a closer look",
         description=(
-            f"Read celebrity, UK news, tech, sport, lifestyle, law and food guides "
-            f"from {config.site_name}."
+            f"Fresh perspectives, useful answers and stories for curious minds from {config.site_name}."
         ),
         canonical=home_url,
         og_type="website",

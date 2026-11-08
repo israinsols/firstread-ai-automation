@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#102a43">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f2eb">
   <title>{{ page_title }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="canonical" href="{{ canonical }}">
@@ -34,10 +34,11 @@
   <a class="skip" href="{{ base_path }}/#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <div class="brand">
-        <img src="/static/logo.svg" alt="" width="40" height="40">
-        <span>{{ site_name }}</span>
-      </div>
+      <a class="brand" href="/" aria-label="{{ site_name }} home">
+        <img src="/static/logo.svg" alt="" width="42" height="42">
+        <span>firstread<span class="brand-period">.</span></span>
+      </a>
+      <span class="edition-note">A magazine for curious minds</span>
     </div>
   </header>
   <main id="main" class="wrap">
