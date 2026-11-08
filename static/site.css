@@ -463,6 +463,7 @@ img { display: block; max-width: 100%; height: auto; }
 @media (max-width: 760px) {
   .wrap { width: min(100% - 40px, 600px); }
   .header-inner { min-height: 72px; }
+  .edition-note { display: none; }
   .masthead { grid-template-columns: 1fr; gap: 24px; padding: 28px 0 30px; }
   .masthead-copy { padding: 0 2px; }
   .masthead h1 { font-size: clamp(3.7rem, 10vw, 5.2rem); }
@@ -477,7 +478,6 @@ img { display: block; max-width: 100%; height: auto; }
 }
 @media (max-width: 500px) {
   .wrap { width: calc(100% - 36px); }
-  .edition-note { font-size: .82rem; }
   .masthead { gap: 20px; padding: 22px 0 24px; }
   .masthead-kicker { gap: 8px; font-size: .59rem; letter-spacing: .11em; }
   .masthead h1 { margin: 18px 0 14px; font-size: clamp(3.45rem, 15vw, 4.7rem); }
