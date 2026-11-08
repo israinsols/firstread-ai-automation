@@ -115,7 +115,7 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert "<title>Firstread.co.uk | Stories for a closer look</title>" in home_html
     assert "<h1>Stories for a<br><em>closer look.</em></h1>" in home_html
     assert 'href="https://firstread.co.uk/"' in home_html
-    assert "Visit the original site · firstread.co.uk" in home_html
+    assert "Visit firstread.co.uk" in home_html
     assert "<h2>More to discover</h2>" in home_html
     assert 'class="editorial-note"' in home_html
     assert 'src="/static/images/food.jpg?v=photos-2"' in home_html
@@ -123,7 +123,7 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     assert 'href="/about/">Get to know Firstread' in home_html
     assert all(f'href="/technology-guide-{number}/"' in home_html for number in range(10))
     assert 'href="/firstread-co-uk-sample-guide/"' in home_html
-    assert 'class="story-number" aria-hidden="true">01</span>' in home_html
+    assert 'class="hero-feature-label">Editor\'s pick <span aria-hidden="true">01</span></span>' in home_html
     assert 'class="story-number" aria-hidden="true">02</span>' in home_html
     assert "<nav" not in home_html
     assert 'aria-label="Main navigation"' not in post_html
