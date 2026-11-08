@@ -40,6 +40,9 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="/">Home</a>
+        {% for category in categories|default([]) %}
+        <a href="/category/{{ category.slug }}/">{{ category.name }}</a>
+        {% endfor %}
         <a href="/about/">About</a>
         <a href="/contact/">Contact</a>
       </nav>

@@ -16,7 +16,7 @@ def config_at(root: Path, base_path: str = "") -> SiteConfig:
         site_name="Firstread.co.uk",
         domain="firstread.co.uk",
         base_path=base_path,
-        niche="lifestyle, culture and practical guides",
+        niche="Celebrity, News, Tech, Sports, Lifestyle, Law and Food",
         posts_per_day=1,
         language="en-GB",
         author="Firstread Editorial",
@@ -77,6 +77,13 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     (config.posts_dir / "unpublished-secret.md").write_text(
         frontmatter.dumps(draft), encoding="utf-8"
     )
+    about = frontmatter.Post(
+        "Information about the publication.",
+        title="About Firstread.co.uk",
+        slug="about",
+        status="published",
+    )
+    (config.pages_dir / "about.md").write_text(frontmatter.dumps(about), encoding="utf-8")
 
     result = build_site(config)
     public = config.public_dir
@@ -102,8 +109,16 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
         in post_html
     )
     assert "tracker.example" not in post_html
-    assert "<title>Firstread.co.uk | News, stories and practical guides</title>" in home_html
-    assert "<h1>Firstread.co.uk: news, stories and practical guides</h1>" in home_html
+    assert "<title>Firstread.co.uk | News, Celebrity, Tech, Sport, Lifestyle, Law &amp; Food</title>" in home_html
+    assert "<h1>Firstread.co.uk: Celebrity, News, Tech, Sports, Lifestyle, Law and Food</h1>" in home_html
+    assert '<a href="/category/technology/">Technology</a>' in home_html
+    assert '<a href="/category/technology/">Technology</a>' in post_html
+    category_html = (public / "category" / "technology" / "index.html").read_text(
+        encoding="utf-8"
+    )
+    assert '<a href="/category/technology/">Technology</a>' in category_html
+    about_html = (public / "about" / "index.html").read_text(encoding="utf-8")
+    assert '<a href="/category/technology/">Technology</a>' in about_html
     assert '<img src="/static/logo.svg" alt="" width="40" height="40">' in home_html
     assert (public / "static" / "logo.svg").is_file()
     assert "firstread.co.uk" in (public / "CNAME").read_text(encoding="utf-8")
@@ -164,6 +179,11 @@ def test_new_uk_guides_match_their_keywords_and_link_to_official_sources():
     guides = (
         ("best-before-vs-use-by-dates-uk.md", "https://www.gov.uk/"),
         ("report-scam-emails-and-texts-uk.md", "https://www.gov.uk/"),
+        ("verify-celebrity-concert-dates-and-tickets-uk.md", "https://www.gov.uk/"),
+        ("android-phone-security-backup-guide.md", "https://www.google.com/"),
+        ("nhs-physical-activity-guidelines-adults-uk.md", "https://www.nhs.uk/"),
+        ("when-do-clocks-change-uk.md", "https://www.gov.uk/"),
+        ("uk-consumer-rights-faulty-goods-refunds.md", "https://www.gov.uk/"),
     )
     for filename, official_source in guides:
         article = frontmatter.load(project_root / "content" / "posts" / filename)
@@ -175,6 +195,15 @@ def test_new_uk_guides_match_their_keywords_and_link_to_official_sources():
         assert len(article["meta_description"]) <= 155
         assert official_source in article.content
         assert len(article["verify_before_publish"]) == 3
+        assert article["category"] in {
+            "Celebrity",
+            "News",
+            "Tech",
+            "Sports",
+            "Lifestyle",
+            "Law",
+            "Food",
+        }
 
 
 def test_github_pages_project_path_prefixes_local_links(tmp_path):

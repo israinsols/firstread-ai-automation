@@ -3,7 +3,7 @@ title: "How to Report Scam Emails and Texts in the UK"
 slug: report-scam-emails-and-texts-uk
 keyword: how to report scam emails and texts in the UK
 meta_description: "Find the official UK routes for reporting suspicious emails and texts, plus steps to take if you have clicked or shared details."
-category: Everyday Guides
+category: News
 tags:
   - Online Safety
   - UK Guides

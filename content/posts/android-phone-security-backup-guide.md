@@ -3,7 +3,7 @@ title: "Android Phone Security and Backup: A Practical Firstread.co.uk Guide"
 slug: android-phone-security-backup-guide
 keyword: Android phone security and backup
 meta_description: "A practical Android security and backup checklist: protect your accounts, prepare for loss, and save important photos and files."
-category: "Phone Security"
+category: "Tech"
 tags:
   - Android
   - Phone Security

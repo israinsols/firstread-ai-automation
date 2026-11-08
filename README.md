@@ -1,6 +1,6 @@
 # Firstread.co.uk
 
-A Python static-site project branded for `firstread.co.uk`. It writes HTML, images, RSS, robots.txt, and a sitemap to `public/`; content drafts are **not published by default**.
+A Python static-site project branded for `firstread.co.uk`, with Celebrity, News, Tech, Sports, Lifestyle, Law and Food sections. It writes HTML, images, RSS, robots.txt, and a sitemap to `public/`; content drafts are **not published by default**.
 
 Keyword research uses `firstread.co.uk` as its exact, highest-priority seed and requests UK-localized suggestions. Organic clicks and rankings cannot be guaranteed; the project does not simulate clicks, create fake visitors, or manipulate search results.
 

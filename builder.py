@@ -28,6 +28,7 @@ from seo import (
 )
 
 POSTS_PER_PAGE = 10
+SECTION_ORDER = ("celebrity", "news", "tech", "sports", "lifestyle", "law", "food")
 MANIFEST_NAME = ".firstread-generated-files.json"
 LEGACY_MANIFEST_NAME = ".bilalbill-generated-files.json"
 
@@ -186,6 +187,7 @@ def _taxonomy_pages(
     public: Path,
     generated: set[str],
     taxonomy: str,
+    categories: list[dict[str, Any]],
     groups: dict[str, tuple[str, list[dict[str, Any]]]],
 ) -> list[dict[str, Any]]:
     urls: list[dict[str, Any]] = []
@@ -215,6 +217,7 @@ def _taxonomy_pages(
                 json_ld=_json_ld_page(config, page_title, canonical, f"Articles about {name}"),
                 heading=name,
                 taxonomy="Category" if taxonomy == "category" else "Tag",
+                categories=categories,
                 posts=page_posts,
                 pages=pages,
                 page_number=number,
@@ -315,16 +318,24 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
 
     categories = [
         {"name": name, "slug": slug, "count": len(grouped_posts)}
-        for slug, (name, grouped_posts) in sorted(category_groups.items())
+        for slug, (name, grouped_posts) in sorted(
+            category_groups.items(),
+            key=lambda item: (
+                SECTION_ORDER.index(item[0])
+                if item[0] in SECTION_ORDER
+                else len(SECTION_ORDER),
+                item[0],
+            ),
+        )
     ]
     home_url = canonical_url(config, "/")
     home_html = _render_context(
         config,
         "home.html",
-        page_title=f"{config.site_name} | News, stories and practical guides",
+        page_title=f"{config.site_name} | News, Celebrity, Tech, Sport, Lifestyle, Law & Food",
         description=(
-            f"Read news, stories and practical guides from {config.site_name}, "
-            "with clear context across culture, business, sport and technology."
+            f"Read celebrity, UK news, tech, sport, lifestyle, law and food guides "
+            f"from {config.site_name}."
         ),
         canonical=home_url,
         og_type="website",
@@ -362,12 +373,17 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
             toc=toc,
             related=related,
             tag_slugs=tag_slugs,
+            categories=categories,
         )
         _write_generated(public, f"{post['slug']}/index.html", html, generated)
         sitemap_urls.append({"loc": post["canonical"], "lastmod": post["date"]})
 
-    sitemap_urls.extend(_taxonomy_pages(config, public, generated, "category", category_groups))
-    sitemap_urls.extend(_taxonomy_pages(config, public, generated, "tag", tag_groups))
+    sitemap_urls.extend(
+        _taxonomy_pages(config, public, generated, "category", categories, category_groups)
+    )
+    sitemap_urls.extend(
+        _taxonomy_pages(config, public, generated, "tag", categories, tag_groups)
+    )
     for page in pages:
         canonical = page["canonical"]
         html = _render_context(
@@ -378,6 +394,7 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
             canonical=canonical,
             json_ld=_json_ld_page(config, page["title"], canonical, page["meta_description"]),
             page=page,
+            categories=categories,
         )
         _write_generated(public, f"{page['slug']}/index.html", html, generated)
         sitemap_urls.append({"loc": canonical, "lastmod": date.today().isoformat()})

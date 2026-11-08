@@ -79,9 +79,13 @@ def load_config(root: Path | None = None) -> SiteConfig:
         for item in os.getenv(
             "KEYWORD_SEEDS",
             (
-                "firstread.co.uk, best before vs use by dates in the UK, "
-                "how to report scam emails and texts in the UK, "
-                "report scam text UK"
+                "firstread.co.uk, how to verify celebrity concert dates and tickets "
+                "in the UK, how to report scam emails and texts in the UK, "
+                "android phone security and backup, "
+                "NHS physical activity guidelines for adults in the UK, "
+                "when do clocks change in the UK, "
+                "UK consumer rights for faulty goods and refunds, "
+                "best before vs use by dates in the UK"
             ),
         ).split(",")
         if item.strip()
@@ -114,7 +118,8 @@ def load_config(root: Path | None = None) -> SiteConfig:
         domain=domain,
         base_path=base_path,
         niche=os.getenv(
-            "SITE_NICHE", "lifestyle, culture and practical guides"
+            "SITE_NICHE",
+            "Celebrity, News, Tech, Sports, Lifestyle, Law and Food",
         ).strip(),
         posts_per_day=posts_per_day,
         language=os.getenv("SITE_LANGUAGE", "en-GB").strip(),

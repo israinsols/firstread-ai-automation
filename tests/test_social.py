@@ -27,7 +27,7 @@ def test_social_posts_are_sent_once_per_published_slug(tmp_path, monkeypatch):
         site_name="Firstread.co.uk",
         domain="firstread.co.uk",
         base_path="",
-        niche="lifestyle, culture and practical guides",
+        niche="Celebrity, News, Tech, Sports, Lifestyle, Law and Food",
         posts_per_day=1,
         language="en-GB",
         author="Firstread Editorial",
