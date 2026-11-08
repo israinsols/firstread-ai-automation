@@ -92,7 +92,7 @@ railway domain
 
 Open the generated Railway URL to check the site. Do not point `firstread.co.uk` at Railway unless you intend to move the existing live site and have verified the migration plan. Keep `SITE_DOMAIN=firstread.co.uk` for canonical and sitemap URLs; do not set a GitHub Pages base path for Railway.
 
-This repository does not include a GitHub Actions workflow. A manual Railway upload does not automatically receive later content changes; run `railway up` again after rebuilding, or connect this repository to Railway and deploy from its root directory.
+This repository does not include a Railway deployment workflow. A manual Railway upload does not automatically receive later content changes; run `railway up` again after rebuilding, or connect this repository to Railway and deploy from its root directory.
 
 ### Cloudflare Pages preview
 
@@ -127,7 +127,11 @@ Never put personal account passwords or API tokens in source files. Disable any 
 
 ## 7. Local scheduling and maintenance
 
-No scheduled workflow is included. For local scheduling, use Windows Task Scheduler to run `python main.py --all` from this project folder, with the virtual environment's Python executable and required environment variables. Do not create unattended publishing unless an editor intentionally accepts that risk.
+The GitHub Actions workflow at `.github/workflows/daily.yml` runs every day at **2:00 pm Pakistan time** (09:00 UTC), and can also be started manually from the repository's **Actions** tab. It researches UK keyword suggestions, generates one article with Gemini, marks it published, builds the site, and commits the article Markdown to `content/posts/`. The workflow caches the keyword database between runs so it can avoid reusing researched topics.
+
+Before the first run, add a repository Actions secret named `GEMINI_API_KEY` under **Settings → Secrets and variables → Actions**. The workflow needs repository **Contents: read and write** permission to commit its generated article. Check the Actions run log after setup; missing credentials, API quota limits, or generation/build errors will fail the run rather than publish an empty article.
+
+This workflow commits published content to GitHub; **it does not configure hosting or deploy to `firstread.co.uk`**. The domain currently serves a separate WordPress site. A host connected to this repository may deploy on the generated commit if its Git integration is configured, but do not change DNS or replace the live site without an approved migration plan. Automatic AI-published articles are not human-reviewed; verify facts and sources regularly.
 
 Useful commands:
 
@@ -141,7 +145,7 @@ python main.py --index
 pytest -q
 ```
 
-This repository does not include a deployment workflow. Only use `--deploy` after adding and verifying a `daily.yml` workflow in this repository's `.github/workflows/` directory.
+The daily workflow is for article generation and publishing to this repository, not production deployment. Only use `--deploy` after adding and verifying a separate deployment workflow for the intended host.
 
 ## Day 1 launch checklist
 
