@@ -25,7 +25,7 @@ pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Edit `.env` and verify the site name, UK English language, contact mailbox, and publication details. The exact domain `firstread.co.uk` is the only default keyword seed. Put credentials only in `.env` locally and your host's secret manager in production. Never commit `.env`, API keys, or the Search Console private key.
+Edit `.env` and verify the site name, UK English language, contact mailbox, and publication details. The exact domain `firstread.co.uk` stays in the keyword database as a branded seed; article generation skips that navigational seed and uses related UK topic seeds instead. Put credentials only in `.env` locally and your host's secret manager in production. Never commit `.env`, API keys, or the Search Console private key.
 
 For Gemini, create an API key in Google AI Studio and set `GEMINI_API_KEY`. The default model is `gemini-3.8-flash`; override it locally with `GEMINI_MODEL`. Gemini free-tier access, model availability, and quotas can change; a failed generation leaves existing published content unchanged.
 
@@ -38,7 +38,7 @@ python main.py --build
 python main.py --all --dry-run
 ```
 
-Research uses the public Autosuggest endpoint with a one-second pause between requests. A seed expands into alphabet and question/price variants, so one research run may take a few minutes. The keyword database is `data/firstread.sqlite3`. Research stores the exact domain seed before querying Google's UK-localized Autosuggest service.
+Research uses the public Autosuggest endpoint with a one-second pause between requests. Each seed expands into alphabet and question variants, so one research run may take several minutes. The keyword database is `data/firstread.sqlite3`. Research stores the exact domain seed before querying Google's UK-localized Autosuggest service.
 
 `--generate` writes a Markdown article to `content/posts/` with `status: draft`, unless you explicitly change `AUTO_PUBLISH`. Generation requires available keywords and `GEMINI_API_KEY`. Verify each `verify_before_publish` note against reliable, current sources; edit the article and metadata yourself. Generated copy, factual accuracy, originality, and SEO results are not guaranteed.
 

@@ -77,7 +77,12 @@ def load_config(root: Path | None = None) -> SiteConfig:
     seeds = tuple(
         item.strip()
         for item in os.getenv(
-            "KEYWORD_SEEDS", "firstread.co.uk"
+            "KEYWORD_SEEDS",
+            (
+                "firstread.co.uk, best before vs use by dates in the UK, "
+                "how to report scam emails and texts in the UK, "
+                "report scam text UK"
+            ),
         ).split(",")
         if item.strip()
     )
@@ -108,7 +113,9 @@ def load_config(root: Path | None = None) -> SiteConfig:
         site_name=os.getenv("SITE_NAME", "Firstread.co.uk").strip(),
         domain=domain,
         base_path=base_path,
-        niche=os.getenv("SITE_NICHE", "news and practical guides").strip(),
+        niche=os.getenv(
+            "SITE_NICHE", "lifestyle, culture and practical guides"
+        ).strip(),
         posts_per_day=posts_per_day,
         language=os.getenv("SITE_LANGUAGE", "en-GB").strip(),
         author=os.getenv("SITE_AUTHOR", "Firstread Editorial").strip(),

@@ -16,7 +16,7 @@ def config_at(root: Path, base_path: str = "") -> SiteConfig:
         site_name="Firstread.co.uk",
         domain="firstread.co.uk",
         base_path=base_path,
-        niche="news and practical guides",
+        niche="lifestyle, culture and practical guides",
         posts_per_day=1,
         language="en-GB",
         author="Firstread Editorial",
@@ -157,6 +157,24 @@ def test_real_editorial_article_has_publishable_length_and_four_faqs():
     assert 900 <= len(re.findall(r"\b[\w'-]+\b", text)) <= 1300
     assert len(questions) == 4
     assert len(article["verify_before_publish"]) == 3
+
+
+def test_new_uk_guides_match_their_keywords_and_link_to_official_sources():
+    project_root = Path(__file__).resolve().parents[1]
+    guides = (
+        ("best-before-vs-use-by-dates-uk.md", "https://www.gov.uk/"),
+        ("report-scam-emails-and-texts-uk.md", "https://www.gov.uk/"),
+    )
+    for filename, official_source in guides:
+        article = frontmatter.load(project_root / "content" / "posts" / filename)
+        word_count = len(re.findall(r"\b[\w'-]+\b", article.content))
+
+        assert article["status"] == "published"
+        assert article["keyword"].casefold() in article["title"].casefold()
+        assert 900 <= word_count <= 1300
+        assert len(article["meta_description"]) <= 155
+        assert official_source in article.content
+        assert len(article["verify_before_publish"]) == 3
 
 
 def test_github_pages_project_path_prefixes_local_links(tmp_path):

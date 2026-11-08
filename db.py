@@ -89,7 +89,11 @@ def save_keyword(
             VALUES (?, ?, ?, ?, ?, ?)
             ON CONFLICT(normalized) DO UPDATE SET
                 score = MAX(keywords.score, excluded.score),
-                priority = MAX(keywords.priority, excluded.priority)
+                priority = MAX(keywords.priority, excluded.priority),
+                source = CASE
+                    WHEN excluded.source = 'site-seed' THEN excluded.source
+                    ELSE keywords.source
+                END
             """,
             (keyword, normalized, source, score, priority, now_iso()),
         )
@@ -100,6 +104,7 @@ def next_keyword(path: Path) -> sqlite3.Row | None:
         return db.execute(
             """
             SELECT * FROM keywords
+            WHERE source != 'site-seed'
             ORDER BY priority DESC, score DESC, used_at ASC, id ASC
             LIMIT 1
             """

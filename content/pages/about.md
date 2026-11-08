@@ -5,11 +5,11 @@ meta_description: Learn about Firstread.co.uk, an independent publication coveri
 status: published
 ---
 
-Firstread.co.uk is an independent publication sharing news, culture, sport, business, technology and practical explainers for readers in the UK and beyond. Our aim is to make useful information clear, accessible and easy to check.
+Firstread.co.uk is an independent publication covering lifestyle, culture, food, entertainment and trending stories, with practical explainers for readers in the UK and beyond. Our aim is to make useful information clear, accessible and easy to check.
 
 ## What readers can expect
 
-We cover a range of subjects, from current stories and people to technology and everyday how-to guides. We value clear explanations and honest limitations over keyword-stuffed pages or claims that a tool, product or trick guarantees a result.
+We cover a range of subjects, from culture and entertainment to food and everyday how-to guides. We value clear explanations and honest limitations over keyword-stuffed pages or claims that a tool, product or trick guarantees a result.
 
 ## Editorial approach
 

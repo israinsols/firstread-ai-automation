@@ -21,9 +21,14 @@ def test_defaults_target_firstread_domain_and_exact_keyword_seed(tmp_path, monke
     assert config.site_name == "Firstread.co.uk"
     assert config.domain == "firstread.co.uk"
     assert config.base_url == "https://firstread.co.uk"
-    assert config.niche == "news and practical guides"
+    assert config.niche == "lifestyle, culture and practical guides"
     assert config.language == "en-GB"
-    assert config.keyword_seeds == ("firstread.co.uk",)
+    assert config.keyword_seeds == (
+        "firstread.co.uk",
+        "best before vs use by dates in the UK",
+        "how to report scam emails and texts in the UK",
+        "report scam text UK",
+    )
     assert config.contact_email == "hello@firstread.co.uk"
     assert config.gsc_site_url == "sc-domain:firstread.co.uk"
     assert config.database_path.name == "firstread.sqlite3"
