@@ -49,7 +49,7 @@ class SiteConfig:
 
     @property
     def database_path(self) -> Path:
-        return self.root / "data" / "bilalbill.sqlite3"
+        return self.root / "data" / "firstread.sqlite3"
 
     @property
     def posts_dir(self) -> Path:
@@ -68,16 +68,16 @@ def load_config(root: Path | None = None) -> SiteConfig:
     """Load configuration without exposing secrets in source-controlled files."""
     project_root = (root or ROOT).resolve()
     load_dotenv(project_root / ".env")
-    domain = os.getenv("SITE_DOMAIN", "bilalbill.com").strip().lower().rstrip(".")
+    domain = os.getenv("SITE_DOMAIN", "firstread.co.uk").strip().lower().rstrip(".")
     if not re.fullmatch(
         r"(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}",
         domain,
     ):
-        raise ValueError("SITE_DOMAIN must be a hostname such as bilalbill.com, without a scheme.")
+        raise ValueError("SITE_DOMAIN must be a hostname such as firstread.co.uk, without a scheme.")
     seeds = tuple(
         item.strip()
         for item in os.getenv(
-            "KEYWORD_SEEDS", "bilalbill,technology Pakistan,tech guides Pakistan"
+            "KEYWORD_SEEDS", "firstread.co.uk"
         ).split(",")
         if item.strip()
     )
@@ -105,13 +105,13 @@ def load_config(root: Path | None = None) -> SiteConfig:
 
     return SiteConfig(
         root=project_root,
-        site_name=os.getenv("SITE_NAME", "bilalbill").strip(),
+        site_name=os.getenv("SITE_NAME", "Firstread.co.uk").strip(),
         domain=domain,
         base_path=base_path,
-        niche=os.getenv("SITE_NICHE", "technology").strip(),
+        niche=os.getenv("SITE_NICHE", "news and practical guides").strip(),
         posts_per_day=posts_per_day,
-        language=os.getenv("SITE_LANGUAGE", "en-PK").strip(),
-        author=os.getenv("SITE_AUTHOR", "Bilal").strip(),
+        language=os.getenv("SITE_LANGUAGE", "en-GB").strip(),
+        author=os.getenv("SITE_AUTHOR", "Firstread Editorial").strip(),
         auto_publish=_bool_env("AUTO_PUBLISH", False),
         social_telegram=_bool_env("SOCIAL_TELEGRAM", False),
         social_facebook=_bool_env("SOCIAL_FACEBOOK", False),

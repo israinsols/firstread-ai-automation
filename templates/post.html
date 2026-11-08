@@ -26,5 +26,5 @@
 {% if post.tags %}
 <p class="tag-list">{% for tag in post.tags %}<a class="tag" href="/tag/{{ tag_slugs[loop.index0] }}/">{{ tag }}</a>{% endfor %}</p>
 {% endif %}
-<p class="home-link">Discover more at <a href="/"><strong>bilalbill</strong></a>.</p>
+<p class="home-link">Discover more at <a href="/"><strong>{{ site_name }}</strong></a>.</p>
 {% endblock %}

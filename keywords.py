@@ -13,8 +13,8 @@ from config import SiteConfig
 from db import initialize, save_keyword
 
 AUTOSUGGEST_URL = "https://suggestqueries.google.com/complete/search"
-PREFIXES = ("how", "what", "best", "price", "vs", "kaise", "kya")
-BOOST_TERMS = ("pakistan", "price", "urdu", "in pakistan", "قیمت", "پاکستان", "اردو")
+PREFIXES = ("how", "what", "best", "price", "vs", "which", "where")
+BOOST_TERMS = ("uk", "united kingdom", "britain", "price", "in the uk")
 QUESTION_TERMS = ("how", "what", "why", "when", "where", "kaise", "kya", "?")
 
 
@@ -57,13 +57,13 @@ def query_variants(seed: str) -> list[str]:
 
 
 def fetch_suggestions(
-    query: str, session: requests.Session, language: str = "en-PK"
+    query: str, session: requests.Session, language: str = "en-GB"
 ) -> list[str]:
     lang = language.split("-")[0] or "en"
     response = session.get(
         AUTOSUGGEST_URL,
-        params={"client": "firefox", "q": query, "hl": lang, "gl": "pk"},
-        headers={"User-Agent": "bilalbill-site/1.0 (polite keyword discovery)"},
+        params={"client": "firefox", "q": query, "hl": lang, "gl": "uk"},
+        headers={"User-Agent": "Firstread.co.uk/1.0 (+https://firstread.co.uk/)"},
         timeout=15,
     )
     response.raise_for_status()
@@ -87,6 +87,17 @@ def research_keywords(
     first_request = True
     try:
         for seed in config.keyword_seeds:
+            normalized_seed = normalize_keyword(seed)
+            if normalized_seed not in added:
+                added.add(normalized_seed)
+                save_keyword(
+                    config.database_path,
+                    seed,
+                    normalized_seed,
+                    "site-seed",
+                    score_keyword(seed),
+                    priority=100,
+                )
             for variant in query_variants(seed):
                 if not first_request:
                     time.sleep(delay_seconds)

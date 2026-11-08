@@ -24,20 +24,20 @@ class MockSession:
 def test_social_posts_are_sent_once_per_published_slug(tmp_path, monkeypatch):
     config = SiteConfig(
         root=tmp_path,
-        site_name="bilalbill",
-        domain="bilalbill.com",
+        site_name="Firstread.co.uk",
+        domain="firstread.co.uk",
         base_path="",
         niche="technology",
         posts_per_day=1,
-        language="en-PK",
-        author="Bilal",
+        language="en-GB",
+        author="Firstread Editorial",
         auto_publish=False,
         social_telegram=True,
         social_facebook=False,
         social_pinterest=False,
-        keyword_seeds=("bilalbill",),
-        contact_email="hello@bilalbill.com",
-        gsc_site_url="sc-domain:bilalbill.com",
+        keyword_seeds=("firstread.co.uk",),
+        contact_email="hello@firstread.co.uk",
+        gsc_site_url="sc-domain:firstread.co.uk",
     )
     config.posts_dir.mkdir(parents=True)
     post = frontmatter.Post(

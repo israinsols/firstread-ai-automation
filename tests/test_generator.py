@@ -21,8 +21,8 @@ def valid_article():
         )
     )
     return {
-        "title": "bilalbill practical technology guide",
-        "slug": "bilalbill-practical-technology-guide",
+        "title": "Firstread.co.uk practical technology guide",
+        "slug": "firstread-co-uk-practical-technology-guide",
         "meta_description": "A concise guide to practical technology decisions and checks.",
         "markdown": body,
         "tags": ["technology", "guides"],
@@ -33,27 +33,27 @@ def valid_article():
 
 def test_quality_gates_accept_article_with_required_sections():
     article = valid_article()
-    validate_article(article, "bilalbill")
+    validate_article(article, "firstread.co.uk")
 
 
 def test_quality_gates_reject_short_article_and_duplicate_paragraph():
     article = valid_article()
     with pytest.raises(QualityError, match="900-1300"):
-        validate_article({**article, "markdown": "## Short\n\nA few words."}, "bilalbill")
+        validate_article({**article, "markdown": "## Short\n\nA few words."}, "firstread.co.uk")
 
     article = valid_article()
     first_paragraph = article["markdown"].split("\n\n")[2]
     with pytest.raises(QualityError, match="duplicate paragraphs"):
         validate_article(
             {**article, "markdown": article["markdown"] + "\n\n" + first_paragraph},
-            "bilalbill",
+            "firstread.co.uk",
         )
 
 
 def test_quality_gate_rejects_repeated_content():
     article = valid_article()
     with pytest.raises(QualityError, match="similar"):
-        validate_article(article, "bilalbill", [article["markdown"]])
+        validate_article(article, "firstread.co.uk", [article["markdown"]])
 
 
 def test_gemini_request_retries_temporary_service_errors(monkeypatch):

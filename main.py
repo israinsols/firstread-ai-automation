@@ -1,4 +1,4 @@
-"""Command-line orchestration for the bilalbill static blog."""
+"""Command-line orchestration for the Firstread.co.uk editorial site."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from keywords import research_keywords
 from report import report_summary, run_weekly_report
 from social import share_published
 
-LOGGER = logging.getLogger("bilalbill")
+LOGGER = logging.getLogger("firstread")
 
 
 def _record_run(config: SiteConfig, command: str, action: Callable[[], object]) -> bool:
@@ -124,7 +124,7 @@ def _deploy(config: SiteConfig) -> str:
     gh = shutil.which("gh")
     if not gh:
         raise RuntimeError("GitHub CLI `gh` is required. Deploy with the GitHub Actions tab instead.")
-    workflow_path = config.root.parent / ".github" / "workflows" / "daily.yml"
+    workflow_path = config.root / ".github" / "workflows" / "daily.yml"
     if not workflow_path.is_file():
         raise FileNotFoundError(f"GitHub Actions workflow not found: {workflow_path}")
     result = subprocess.run(
@@ -145,7 +145,7 @@ def _report(config: SiteConfig) -> str:
 
 def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Research keywords, create reviewed drafts, and build bilalbill as static HTML."
+        description="Research keywords, create reviewed drafts, and build Firstread.co.uk as static HTML."
     )
     parser.add_argument("command", nargs="?", choices=["publish"])
     parser.add_argument("slug", nargs="?")

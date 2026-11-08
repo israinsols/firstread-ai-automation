@@ -1,14 +1,14 @@
 ---
-title: "bilalbill Guide: Protect Your Android Phone and Back Up What Matters"
+title: "Android Phone Security and Backup: A Practical Firstread.co.uk Guide"
 slug: android-phone-security-backup-guide
-keyword: bilalbill
+keyword: Android phone security and backup
 meta_description: "A practical Android security and backup checklist: protect your accounts, prepare for loss, and save important photos and files."
 category: "Phone Security"
 tags:
   - Android
   - Phone Security
   - Backups
-author: Bilal
+author: Firstread.co.uk
 date: "2026-11-07"
 status: published
 reviewed: true
@@ -20,7 +20,7 @@ verify_before_publish:
 
 A phone holds much more than contacts. It may contain family photos, school or work files, private conversations, banking notifications, and the account that unlocks other services. Losing a phone is stressful; losing access to everything on it can be worse.
 
-This bilalbill checklist explains how to prepare an Android phone before something goes wrong. Menu names vary by device, so use Settings search if needed. Never share a password, screen-lock PIN, or one-time verification code with someone who contacts you unexpectedly.
+This Firstread.co.uk checklist explains how to prepare an Android phone before something goes wrong. Menu names vary by device, so use Settings search if needed. Never share a password, screen-lock PIN, or one-time verification code with someone who contacts you unexpectedly.
 
 ## 1. Secure the screen and your Google Account
 
@@ -102,4 +102,4 @@ Check it after changing phones, accounts, backup settings, or storage plans, and
 
 Phone settings and services change, and different Android devices do not offer identical features. Use the official support pages for your model and account, test the steps before you depend on them, and keep recovery information private. A little preparation now can make a lost-phone day much less disruptive.
 
-For more practical technology guides, visit the [bilalbill homepage](/).
+For more practical guides, visit the [Firstread.co.uk homepage](/).

@@ -163,7 +163,7 @@ def _existing_bodies(config: SiteConfig) -> list[str]:
 
 
 def _prompt(config: SiteConfig, keyword: str) -> str:
-    return f"""Create an original, useful, fact-conscious solo-blog article for {config.site_name}.
+    return f"""Create an original, useful, fact-conscious editorial article for {config.site_name}.
 Niche: {config.niche}. Audience/language: {config.language}. Author: {config.author}.
 Target keyword: {keyword}
 
@@ -232,7 +232,7 @@ def _add_internal_links(body: str, config: SiteConfig) -> str:
     section = "\n\n---\n\n"
     if links:
         section += "## Further reading\n\n" + "\n".join(links) + "\n\n"
-    section += "Learn more at the [bilalbill](/) homepage."
+    section += f"Learn more at the [{config.site_name}](/) homepage."
     faq = re.search(r"^##\s+(?:faq|frequently asked questions)\b", body, re.I | re.M)
     if faq:
         return body[: faq.start()].rstrip() + section + "\n\n" + body[faq.start() :]

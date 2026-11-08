@@ -22,7 +22,7 @@ def _font(size: int) -> ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
-def make_cover_images(title: str, site_name: str = "bilalbill") -> tuple[bytes, bytes]:
+def make_cover_images(title: str, site_name: str = "Firstread.co.uk") -> tuple[bytes, bytes]:
     """Return a 1200x630 PNG social cover and a 400x210 WebP thumbnail."""
     image = Image.new("RGB", (1200, 630), "#102a43")
     draw = ImageDraw.Draw(image)

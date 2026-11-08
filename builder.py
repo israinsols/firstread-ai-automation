@@ -28,7 +28,8 @@ from seo import (
 )
 
 POSTS_PER_PAGE = 10
-MANIFEST_NAME = ".bilalbill-generated-files.json"
+MANIFEST_NAME = ".firstread-generated-files.json"
+LEGACY_MANIFEST_NAME = ".bilalbill-generated-files.json"
 
 
 def _markdown_engine() -> MarkdownIt:
@@ -251,25 +252,28 @@ def _write_drafts_report(config: SiteConfig, drafts: list[str]) -> Path:
 
 
 def _clean_previous_output(public: Path) -> set[str]:
-    manifest = public / MANIFEST_NAME
-    if not manifest.is_file():
-        return set()
-    try:
-        previous = json.loads(manifest.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f"Cannot read generated-file manifest: {manifest}") from exc
-    if not isinstance(previous, list) or not all(isinstance(item, str) for item in previous):
-        raise ValueError(f"Generated-file manifest is invalid: {manifest}")
     root = public.resolve()
-    for relative in previous:
-        candidate = public / relative
-        if candidate.is_symlink():
-            raise ValueError(f"Refusing to remove a symlink listed in the manifest: {relative}")
-        target = candidate.resolve()
-        if root not in target.parents or target == root:
-            raise ValueError(f"Refusing to remove a path outside public/: {relative}")
-        if target.is_file():
-            target.unlink()
+    for name in (MANIFEST_NAME, LEGACY_MANIFEST_NAME):
+        manifest = public / name
+        if not manifest.is_file():
+            continue
+        try:
+            previous = json.loads(manifest.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(f"Cannot read generated-file manifest: {manifest}") from exc
+        if not isinstance(previous, list) or not all(isinstance(item, str) for item in previous):
+            raise ValueError(f"Generated-file manifest is invalid: {manifest}")
+        for relative in previous:
+            candidate = public / relative
+            if candidate.is_symlink():
+                raise ValueError(f"Refusing to remove a symlink listed in the manifest: {relative}")
+            target = candidate.resolve()
+            if root not in target.parents or target == root:
+                raise ValueError(f"Refusing to remove a path outside public/: {relative}")
+            if target.is_file():
+                target.unlink()
+        if name == LEGACY_MANIFEST_NAME:
+            manifest.unlink()
     return set()
 
 
@@ -317,8 +321,11 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
     home_html = _render_context(
         config,
         "home.html",
-        page_title=f"{config.site_name} | Practical {config.niche} guides",
-        description=f"Helpful, carefully reviewed {config.niche} articles from {config.site_name}.",
+        page_title=f"{config.site_name} | News, stories and practical guides",
+        description=(
+            f"Read news, stories and practical guides from {config.site_name}, "
+            "with clear context across culture, business, sport and technology."
+        ),
         canonical=home_url,
         og_type="website",
         json_ld=website_json_ld(config),

@@ -1,8 +1,8 @@
-# bilalbill: Python-only static blog
+# Firstread.co.uk
 
-A small, Python-only static site generator for `bilalbill.com`. It writes HTML, images, RSS, robots.txt, and a sitemap to `public/`; there is no WordPress, JavaScript application runtime, paid hosting dependency, click bot, or fake traffic. Content drafts are **not published by default**.
+A Python static-site project branded for `firstread.co.uk`. It writes HTML, images, RSS, robots.txt, and a sitemap to `public/`; content drafts are **not published by default**.
 
-Organic search growth is not guaranteed. Search engines decide whether and where to show pages. This project discovers topic ideas and publishes helpful pages; it never searches Google results and clicks them, creates fake visitors, or manipulates ads.
+Keyword research uses `firstread.co.uk` as its exact, highest-priority seed and requests UK-localized suggestions. Organic clicks and rankings cannot be guaranteed; the project does not simulate clicks, create fake visitors, or manipulate search results.
 
 ## What is included
 
@@ -10,7 +10,7 @@ Organic search growth is not guaranteed. Search engines decide whether and where
 - Google Autosuggest research with one-second request spacing, deduplication, and keyword scoring.
 - Gemini article drafts with three attempts and checks for length, keyword, FAQ, headings, placeholders, repeated paragraphs, and similarity. Every draft carries three fact-check notes.
 - A static, responsive, accessible site with clean URLs, categories/tags, pagination, internal links, table of contents, reading time, related posts, JSON-LD, canonical/Open Graph tags, XML sitemap, robots.txt, and RSS.
-- GitHub Pages deployment, optional IndexNow and Search Console sitemap notifications, optional Telegram/Facebook/Pinterest sharing, and an optional weekly Search Console report.
+- Sitemap, robots.txt, canonical URLs, and structured metadata for `https://firstread.co.uk`; optional IndexNow, Search Console, and Telegram/Facebook/Pinterest integrations.
 - `AUTO_PUBLISH=False` by default. Review every claim, source, link, and generated image before publication.
 
 ## 1. Set up Python and the project
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Edit `.env`. Set the correct niche, language, author, email, and seed phrases before research. The example uses `technology` and `en-PK`; change those if the site will cover another subject or primarily Urdu. Put credentials only in `.env` locally and GitHub Actions secrets in production. Never commit `.env`, API keys, or the Search Console private key.
+Edit `.env` and verify the site name, UK English language, contact mailbox, and publication details. The exact domain `firstread.co.uk` is the only default keyword seed. Put credentials only in `.env` locally and your host's secret manager in production. Never commit `.env`, API keys, or the Search Console private key.
 
 For Gemini, create an API key in Google AI Studio and set `GEMINI_API_KEY`. The default model is `gemini-3.8-flash`; override it locally with `GEMINI_MODEL`. Gemini free-tier access, model availability, and quotas can change; a failed generation leaves existing published content unchanged.
 
@@ -38,7 +38,7 @@ python main.py --build
 python main.py --all --dry-run
 ```
 
-Research uses the public Autosuggest endpoint with a one-second pause between requests. A seed expands into alphabet and question/price variants, so one research run may take a few minutes. The keyword database is `data/bilalbill.sqlite3`.
+Research uses the public Autosuggest endpoint with a one-second pause between requests. A seed expands into alphabet and question/price variants, so one research run may take a few minutes. The keyword database is `data/firstread.sqlite3`. Research stores the exact domain seed before querying Google's UK-localized Autosuggest service.
 
 `--generate` writes a Markdown article to `content/posts/` with `status: draft`, unless you explicitly change `AUTO_PUBLISH`. Generation requires available keywords and `GEMINI_API_KEY`. Verify each `verify_before_publish` note against reliable, current sources; edit the article and metadata yourself. Generated copy, factual accuracy, originality, and SEO results are not guaranteed.
 
@@ -68,66 +68,56 @@ python -m http.server 8000 --directory public
 
 Open `http://127.0.0.1:8000`. The source templates and styling are in `templates/` and `static/`. Static pages live in `content/pages/`. Review the About, Contact, Privacy, and Disclaimer pages and replace the example contact email if needed.
 
-## 4. Deploy with GitHub Pages
+## 4. Deployment and production safety
 
-This repository does not include a GitHub Actions workflow. To deploy with GitHub Pages, add a workflow at `.github/workflows/` that installs `requirements.txt`, runs `python main.py --build`, and deploys the `public/` directory. For a project site, set `SITE_BASE_PATH=/firstread-ai-automation`; for a custom domain, configure that domain in GitHub Pages and set `SITE_BASE_PATH=/`. Keep `AUTO_PUBLISH` false so generated drafts are not published without review.
+This repository does not include an automatic deployment workflow. The domain already serves an existing site; a Git push only updates this repository and does not change that live site. Do not change DNS, hosting, or the live deployment until you have checked content parity and planned a migration.
 
-The site configuration defaults to `bilalbill.com`. Before deploying to a different domain, update `.env` or set `SITE_DOMAIN`, `SITE_NAME`, `CONTACT_EMAIL`, and `GSC_SITE_URL` to values for the site you own. A repository name does not change the site's branding or canonical URLs.
+The build defaults to `SITE_DOMAIN=firstread.co.uk`, `SITE_NAME=Firstread.co.uk`, and `SITE_BASE_PATH=`. Before connecting any host, confirm you control the domain and that its current site can safely be replaced. The example contact address `hello@firstread.co.uk` must be configured and verified before publishing.
 
-If you add an automation workflow, configure `GEMINI_API_KEY` as a repository secret. Add `INDEXNOW_KEY` and `GSC_SERVICE_ACCOUNT_JSON` as secrets only if you enable those integrations. Keep local `.env` files and the SQLite database out of Git; the database stores local keyword and automation state.
+If you add an automation workflow, configure `GEMINI_API_KEY` in your host's secret manager. Add `INDEXNOW_KEY` and `GSC_SERVICE_ACCOUNT_JSON` only if you enable those integrations. Keep local `.env` files and the SQLite database out of Git; the database stores local keyword and automation state.
 
 Google AI Studio quotas and API policies can change. This project does not purchase a plan or create simulated search traffic.
 
-When `bilalbill.com` DNS is ready, add `bilalbill.com` under **Settings → Pages → Custom domain**, configure the domain DNS records in the next section, set `SITE_DOMAIN=bilalbill.com`, and build with `SITE_BASE_PATH=/`. The build will switch root-relative links back to `/` and include the `CNAME` file. Do not set `/` before the custom domain is connected.
+For a GitHub Pages project preview, set `SITE_BASE_PATH=/firstread-ai-automation`. For a custom-domain build, use `SITE_BASE_PATH=/`; the build then emits a `CNAME` file. Only attach `firstread.co.uk` to a new host after planning and approving a production migration.
 
-### Railway deployment
+### Railway preview
 
 The `Dockerfile` builds the published static pages and serves them with Nginx. `.dockerignore` excludes local environment files so `.env` secrets are not uploaded. From this directory, create a separate Railway project and deploy:
 
 ```powershell
-railway init --name bilalbill-site
+railway init --name firstread-site
 railway up
 railway domain
 ```
 
-Open the generated Railway URL to check the site. To use `bilalbill.com`, add it as a custom domain in Railway and follow the DNS records Railway displays; keep `SITE_DOMAIN=bilalbill.com` so canonical and sitemap URLs use the intended domain. Do not set a GitHub Pages base path for Railway.
+Open the generated Railway URL to check the site. Do not point `firstread.co.uk` at Railway unless you intend to move the existing live site and have verified the migration plan. Keep `SITE_DOMAIN=firstread.co.uk` for canonical and sitemap URLs; do not set a GitHub Pages base path for Railway.
 
 This repository does not include a GitHub Actions workflow. A manual Railway upload does not automatically receive later content changes; run `railway up` again after rebuilding, or connect this repository to Railway and deploy from its root directory.
 
-### Cloudflare Pages alternative
+### Cloudflare Pages preview
 
 To deploy on Cloudflare Pages, connect the repository under **Cloudflare → Workers & Pages → Create → Pages → Connect to Git**, and set:
 
 - Build command: `python -m pip install -r requirements.txt && python main.py --build`
 - Build output directory: `public`
-- Environment variable: `SITE_DOMAIN=bilalbill.com` (plus any site name/niche settings you changed)
+- Environment variable: `SITE_DOMAIN=firstread.co.uk` (plus any site name/niche settings you changed)
 - Optional environment variable: `INDEXNOW_KEY` if you want the public key file included in the Cloudflare build.
 
 Cloudflare's Git integration rebuilds the published static output from each commit. Add your configured domain under the Pages project's **Custom domains** and follow Cloudflare's DNS prompts. Run `python main.py --index` and `python main.py --share` locally after deployment if those features are enabled. Cloudflare's free-plan limits and included capabilities can change; no paid integration is required by this code.
 
-## 5. Connect `bilalbill.com`
+## 5. Search Console and IndexNow
 
-You must own/control the domain. In GitHub Pages, add `bilalbill.com` as the custom domain and enable HTTPS after DNS has propagated. At your DNS provider, create:
-
-- Apex `A` records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`.
-- Optional IPv6 `AAAA` records for `@`: `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, and `2606:50c0:8003::153`.
-- `CNAME` for `www` pointing to `<your-github-username>.github.io` (use your actual GitHub username).
-
-DNS changes can take time. Do not remove unrelated DNS records without checking what they serve. The build writes a `CNAME` file from `SITE_DOMAIN`. Verify the custom domain and HTTPS in GitHub Pages before sharing it publicly.
-
-## 6. Search Console and IndexNow
-
-1. Add `bilalbill.com` as a **Domain property** in Google Search Console and verify it by adding Google's TXT record at your DNS provider.
-2. After deployment, open `https://bilalbill.com/sitemap.xml` and submit that URL under **Sitemaps** in Search Console. Check the URL Inspection tool for the homepage and first published post.
-3. For automatic sitemap submission and reports, create a Google Cloud service account, enable the Search Console API, and grant the account access to the verified Search Console property. Store the complete service-account JSON in the `GSC_SERVICE_ACCOUNT_JSON` GitHub secret (or local `.env`) and set `GSC_SITE_URL=sc-domain:bilalbill.com`.
+1. Add `firstread.co.uk` as a **Domain property** in Google Search Console and verify it by adding Google's TXT record at your DNS provider, if it is not already verified.
+2. After deployment, open `https://firstread.co.uk/sitemap.xml` and submit that URL under **Sitemaps** in Search Console. Check the URL Inspection tool for the homepage and first published post.
+3. For automatic sitemap submission and reports, create a Google Cloud service account, enable the Search Console API, and grant the account access to the verified Search Console property. Store the complete service-account JSON in the `GSC_SERVICE_ACCOUNT_JSON` secret (or local `.env`) and set `GSC_SITE_URL=sc-domain:firstread.co.uk`.
 4. Optionally create a random IndexNow key (for example, `python -c "import secrets; print(secrets.token_hex(16))"`), save it as `INDEXNOW_KEY` in GitHub secrets and `.env`, and run a deploy. The site publishes `<key>.txt` and after deployment submits its sitemap URLs to IndexNow. IndexNow is a notification, not a promise of indexing or ranking.
 5. To run Search Console reporting weekly, set `ENABLE_GSC_REPORT=true` as a repository variable and configure `GSC_SERVICE_ACCOUNT_JSON`. The report creates `reports/search-console-weekly.csv` and prioritizes queries averaging positions 8-20 in the keyword database. The report is local/CI output and is not committed.
 
 Google's old unauthenticated sitemap-ping URL is deprecated; this project uses the Search Console API when configured and otherwise tells you to submit the sitemap in Search Console.
 
-## 7. Optional social distribution
+## 6. Optional social distribution
 
-Sharing is disabled by default, uses official APIs, and only shares published articles once per platform. Configure credentials as GitHub Actions secrets and set the matching `SOCIAL_*` repository variable to `true`. Caption generation uses the Gemini key.
+Sharing is disabled by default, uses official APIs, and only shares published articles once per platform. Configure credentials in your local `.env` or the deployment host's secret manager, then set the matching `SOCIAL_*` setting to `true`. Caption generation uses the Gemini key.
 
 - **Telegram:** create a bot with BotFather, add it as an administrator to your channel, then set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHANNEL_ID`.
 - **Facebook Page:** create a Meta app with the Page publishing permission, obtain a valid Page access token, and set `FACEBOOK_PAGE_ID` and `FACEBOOK_PAGE_ACCESS_TOKEN`. Review Meta's current permission/app-review rules and token expiry.
@@ -135,7 +125,7 @@ Sharing is disabled by default, uses official APIs, and only shares published ar
 
 Never put personal account passwords or API tokens in source files. Disable any platform flag until its credential and permission setup is complete. Sharing is not paid promotion and does not guarantee referral visits.
 
-## 8. Local scheduling and maintenance
+## 7. Local scheduling and maintenance
 
 No scheduled workflow is included. For local scheduling, use Windows Task Scheduler to run `python main.py --all` from this project folder, with the virtual environment's Python executable and required environment variables. Do not create unattended publishing unless an editor intentionally accepts that risk.
 
@@ -148,20 +138,19 @@ python main.py --build
 python main.py --share
 python main.py --report
 python main.py --index
-python main.py --deploy
 pytest -q
 ```
 
-`--deploy` dispatches the `daily.yml` GitHub workflow with the GitHub CLI (`gh auth login` first); add that workflow to `.github/workflows/` before using this command.
+This repository does not include a deployment workflow. Only use `--deploy` after adding and verifying a `daily.yml` workflow in this repository's `.github/workflows/` directory.
 
 ## Day 1 launch checklist
 
-- [ ] Confirm the homepage title contains **bilalbill** and update the niche/language if necessary.
+- [ ] Confirm the homepage title and logo show **Firstread.co.uk** and verify all publication details.
 - [ ] Review the About, Contact, Privacy, and Disclaimer pages and contact email.
-- [ ] Add the domain to GitHub Pages, configure DNS, and confirm HTTPS.
+- [ ] Review the existing live site and approve a migration plan before changing hosting or DNS.
 - [ ] Verify the domain property in Search Console.
-- [ ] Deploy and submit `https://bilalbill.com/sitemap.xml`.
-- [ ] Add an IndexNow key, deploy, and confirm `https://bilalbill.com/<key>.txt` is reachable.
+- [ ] Deploy to the intended host and submit `https://firstread.co.uk/sitemap.xml`.
+- [ ] Add an IndexNow key, deploy, and confirm `https://firstread.co.uk/<key>.txt` is reachable.
 - [ ] Research keywords and create five draft posts across separate `--generate` runs.
 - [ ] Verify facts, sources, originality, links, titles, and descriptions; publish the first five posts only after human review.
 - [ ] Check the homepage, mobile layout, canonical URLs, RSS, robots.txt, and Search Console coverage after deployment.
@@ -172,7 +161,7 @@ From this directory, run `pytest -q`. A dry-run example:
 
 ```text
 DRY RUN — no network calls or files/database changes.
-- Would research 3 seed(s) with polite Autosuggest requests.
+- Would research 1 seed(s) with polite Autosuggest requests.
 - Would generate up to 1 Gemini draft(s) (AUTO_PUBLISH=False).
 - Would build static pages from published content only.
 - Published markdown files available: 0.
@@ -193,6 +182,7 @@ public/
   rss.xml
   CNAME
   static/site.css
+  static/logo.svg
   static/favicon.svg
   static/og-default.png
   images/<published-slug>.png

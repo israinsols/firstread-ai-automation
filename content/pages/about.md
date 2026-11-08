@@ -1,22 +1,22 @@
 ---
-title: About bilalbill
+title: About Firstread.co.uk
 slug: about
-meta_description: Learn about bilalbill, an independent solo blog sharing practical technology guides.
+meta_description: Learn about Firstread.co.uk, an independent publication covering news, culture, sport, business and practical guides.
 status: published
 ---
 
-bilalbill is an independent solo blog focused on practical technology guides and useful answers for readers in Pakistan and beyond. The goal is simple: explain everyday technology in clear language, with steps readers can check for their own device and situation.
+Firstread.co.uk is an independent publication sharing news, culture, sport, business, technology and practical explainers for readers in the UK and beyond. Our aim is to make useful information clear, accessible and easy to check.
 
-## What we cover
+## What readers can expect
 
-Our starting topics include phone and account security, backups, privacy, and practical how-to guides. We prefer useful instructions and honest limitations over keyword-stuffed pages or claims that a tool, product, or trick guarantees a result.
+We cover a range of subjects, from current stories and people to technology and everyday how-to guides. We value clear explanations and honest limitations over keyword-stuffed pages or claims that a tool, product or trick guarantees a result.
 
-## How articles are prepared
+## Editorial approach
 
-Articles are reviewed for clarity and usefulness. Device menus, software features, prices, and online services can change or vary between models and regions, so readers should confirm important details with current official sources before acting. An article is general information, not personalised professional advice.
+Information can change and may vary by location or situation. Readers should confirm important details with current, authoritative sources before acting. Our articles provide general information, not personalised professional advice.
 
-We correct material mistakes when they are brought to our attention. If you spot a problem, include the page link and a reliable reference when contacting us.
+If you spot a material error, contact us with the page link and a reliable reference so we can review it.
 
 ## Contact
 
-Questions or corrections are welcome at [hello@bilalbill.com](mailto:hello@bilalbill.com).
+Questions and corrections are welcome at [hello@firstread.co.uk](mailto:hello@firstread.co.uk).
