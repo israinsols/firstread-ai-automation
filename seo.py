@@ -14,8 +14,14 @@ ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
 ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
 
 
+def site_root_url(config: SiteConfig) -> str:
+    """Return the public root, including a project-site path when configured."""
+    base_path = config.base_path.strip("/")
+    return f"{config.base_url}/{base_path}/" if base_path else f"{config.base_url}/"
+
+
 def canonical_url(config: SiteConfig, path: str) -> str:
-    return urljoin(config.base_url + "/", path.lstrip("/"))
+    return urljoin(site_root_url(config), path.lstrip("/"))
 
 
 def sitemap_xml(urls: list[dict[str, str]]) -> bytes:
@@ -30,19 +36,19 @@ def sitemap_xml(urls: list[dict[str, str]]) -> bytes:
 
 
 def robots_txt(config: SiteConfig) -> str:
-    return f"User-agent: *\nAllow: /\nSitemap: {config.base_url}/sitemap.xml\n"
+    return f"User-agent: *\nAllow: /\nSitemap: {canonical_url(config, '/sitemap.xml')}\n"
 
 
 def rss_xml(config: SiteConfig, posts: list[dict[str, Any]]) -> bytes:
     root = ET.Element("rss", {"version": "2.0"})
     channel = ET.SubElement(root, "channel")
     ET.SubElement(channel, "title").text = config.site_name
-    ET.SubElement(channel, "link").text = config.base_url + "/"
+    ET.SubElement(channel, "link").text = site_root_url(config)
     ET.SubElement(channel, "description").text = f"{config.niche} articles from {config.site_name}"
     ET.SubElement(
         channel,
         "{http://www.w3.org/2005/Atom}link",
-        {"href": config.base_url + "/rss.xml", "rel": "self", "type": "application/rss+xml"},
+        {"href": canonical_url(config, "/rss.xml"), "rel": "self", "type": "application/rss+xml"},
     )
     for post in posts[:50]:
         item = ET.SubElement(channel, "item")
@@ -80,5 +86,5 @@ def website_json_ld(config: SiteConfig) -> dict[str, Any]:
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": config.site_name,
-        "url": config.base_url + "/",
+        "url": site_root_url(config),
     }

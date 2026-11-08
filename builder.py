@@ -23,6 +23,7 @@ from seo import (
     canonical_url,
     robots_txt,
     rss_xml,
+    site_root_url,
     sitemap_xml,
     website_json_ld,
 )
@@ -140,7 +141,7 @@ def _json_ld_page(config: SiteConfig, title: str, url: str, description: str) ->
         "name": title,
         "description": description,
         "url": url,
-        "isPartOf": {"@type": "WebSite", "name": config.site_name, "url": config.base_url + "/"},
+        "isPartOf": {"@type": "WebSite", "name": config.site_name, "url": site_root_url(config)},
     }
 
 

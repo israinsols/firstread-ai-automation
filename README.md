@@ -71,7 +71,7 @@ Open `http://127.0.0.1:8000`. The source templates and styling are in `templates
 
 ## 4. Deployment and production safety
 
-This repository does not include an automatic deployment workflow. The domain already serves an existing site; a Git push only updates this repository and does not change that live site. Do not change DNS, hosting, or the live deployment until you have checked content parity and planned a migration.
+The GitHub Pages workflow builds and deploys a preview at `https://israinsols.github.io/firstread-ai-automation/` when site files change, and after each successful daily article workflow. GitHub Pages must be enabled for this repository with **Settings → Pages → Build and deployment → Source: GitHub Actions**. The domain `firstread.co.uk` already serves a separate site; the preview workflow does not change DNS, hosting, or that live site.
 
 The build defaults to `SITE_DOMAIN=firstread.co.uk`, `SITE_NAME=Firstread.co.uk`, and `SITE_BASE_PATH=`. Before connecting any host, confirm you control the domain and that its current site can safely be replaced. The example contact address `hello@firstread.co.uk` must be configured and verified before publishing.
 
@@ -79,7 +79,7 @@ If you add an automation workflow, configure `GEMINI_API_KEY` in your host's sec
 
 Google AI Studio quotas and API policies can change. This project does not purchase a plan or create simulated search traffic.
 
-For a GitHub Pages project preview, set `SITE_BASE_PATH=/firstread-ai-automation`. For a custom-domain build, use `SITE_BASE_PATH=/`; the build then emits a `CNAME` file. Only attach `firstread.co.uk` to a new host after planning and approving a production migration.
+The GitHub Pages preview workflow sets `SITE_DOMAIN=israinsols.github.io` and `SITE_BASE_PATH=/firstread-ai-automation` so preview canonicals and asset links use the project-site URL. For a future custom-domain build, use `SITE_DOMAIN=firstread.co.uk` and `SITE_BASE_PATH=`; the build then emits a `CNAME` file. Only attach `firstread.co.uk` to Pages after planning and explicitly approving a production migration.
 
 ### Railway preview
 

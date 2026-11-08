@@ -238,6 +238,12 @@ def test_github_pages_project_path_prefixes_local_links(tmp_path):
 
     assert 'href="/firstread-ai-automation/pages-image-test/"' in home_html
     assert 'href="/firstread-ai-automation/static/site.css"' in home_html
+    assert '<link rel="canonical" href="https://firstread.co.uk/firstread-ai-automation/">' in home_html
     assert 'src="/firstread-ai-automation/images/pages-image-test.png"' in post_html
+    assert '<link rel="canonical" href="https://firstread.co.uk/firstread-ai-automation/pages-image-test/">' in post_html
+    assert '<a class="skip" href="/firstread-ai-automation/#main">Skip to content</a>' in home_html
+    assert "https://firstread.co.uk/firstread-ai-automation/sitemap.xml" in (
+        config.public_dir / "robots.txt"
+    ).read_text(encoding="utf-8")
     assert (config.public_dir / "images" / "pages-image-test.png").is_file()
     assert not (config.public_dir / "CNAME").exists()
