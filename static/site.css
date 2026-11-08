@@ -276,6 +276,38 @@ img { display: block; max-width: 100%; height: auto; }
 .toc-level-3 { margin-left: 1rem; }
 .section { padding: 2rem 0; }
 .section h2 { font-family: var(--serif); font-weight: 400; }
+.taxonomy-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(280px, 1.1fr);
+  align-items: center;
+  gap: clamp(30px, 6vw, 72px);
+  padding: 56px 0 62px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+.taxonomy-copy h1 {
+  margin: 12px 0;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5.3rem);
+  font-weight: 400;
+  letter-spacing: -.065em;
+  line-height: .98;
+}
+.taxonomy-copy > p:last-child { max-width: 430px; margin: 0; color: var(--muted); }
+.taxonomy-image {
+  width: 100%;
+  aspect-ratio: 1.65;
+  object-fit: cover;
+  background: #e6e5dc;
+}
+.page-illustration {
+  width: 100%;
+  aspect-ratio: 2.5;
+  object-fit: cover;
+  margin-bottom: 38px;
+}
+.static-page .article-header { margin-bottom: 22px; }
+.related-section { padding-top: 20px; }
 .breadcrumbs { padding: 1.3rem 0 .4rem; color: var(--muted); font-size: .92rem; }
 .tag-list { display: flex; flex-wrap: wrap; gap: .6rem; padding: 1rem 0; }
 .tag { display: inline-flex; gap: .4rem; padding: .3rem .8rem; border: 1px solid var(--line); background: var(--surface); text-decoration: none; }
@@ -283,6 +315,8 @@ img { display: block; max-width: 100%; height: auto; }
 .home-link { padding: 1rem; background: #eeebe3; }
 .site-footer { margin-top: 64px; border-top: 1px solid var(--line); color: var(--muted); }
 .footer-inner { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: .78rem; }
+.footer-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.footer-brand img { width: 30px; height: 30px; }
 
 @media (max-width: 760px) {
   .wrap { width: min(100% - 40px, 600px); }
@@ -293,6 +327,8 @@ img { display: block; max-width: 100%; height: auto; }
   .lead-copy h2 { max-width: 620px; }
   .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 22px; }
   .story-section { padding-top: 48px; }
+  .taxonomy-hero { grid-template-columns: 1fr; gap: 22px; padding: 40px 0; }
+  .taxonomy-image { order: -1; aspect-ratio: 1.75; }
 }
 @media (max-width: 500px) {
   .wrap { width: calc(100% - 36px); }
@@ -304,6 +340,9 @@ img { display: block; max-width: 100%; height: auto; }
   .lead-story { gap: 20px; padding: 30px 0 42px; }
   .lead-copy h2 { font-size: 2.55rem; }
   .lead-description { margin: 15px 0 18px; font-size: .95rem; }
+  .taxonomy-hero { gap: 18px; margin-bottom: 26px; }
+  .taxonomy-copy h1 { font-size: 3.25rem; }
+  .page-illustration { aspect-ratio: 1.65; margin-bottom: 28px; }
   .section-heading { align-items: end; }
   .article-count { font-size: .7rem; }
   .post-grid { grid-template-columns: 1fr; gap: 34px; }

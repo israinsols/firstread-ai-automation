@@ -218,6 +218,7 @@ def _taxonomy_pages(
                 json_ld=_json_ld_page(config, page_title, canonical, f"Articles about {name}"),
                 heading=name,
                 taxonomy="Category" if taxonomy == "category" else "Tag",
+                taxonomy_count=len(grouped_posts),
                 categories=categories,
                 posts=page_posts,
                 pages=pages,
@@ -394,6 +395,7 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
             canonical=canonical,
             json_ld=_json_ld_page(config, page["title"], canonical, page["meta_description"]),
             page=page,
+            site_illustration="/static/editorial-still-life.svg",
             categories=categories,
         )
         _write_generated(public, f"{page['slug']}/index.html", html, generated)
@@ -409,6 +411,7 @@ def build_site(config: SiteConfig) -> dict[str, Any]:
             "title": "404 - Page not found",
             "content_html": '<p>Sorry, this page is not available. <a href="/">Return to the homepage</a>.</p>',
         },
+        site_illustration="/static/editorial-still-life.svg",
         json_ld=_json_ld_page(config, "Page not found", home_url, "Page not found"),
     )
     _write_generated(public, "404.html", error_html, generated)

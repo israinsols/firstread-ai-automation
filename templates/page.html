@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <article class="article static-page">
+  <img class="page-illustration" src="{{ site_illustration }}" alt="" width="1200" height="480">
   <header class="article-header"><h1>{{ page.title }}</h1></header>
   <div class="article-content">{{ page.content_html|safe }}</div>
 </article>

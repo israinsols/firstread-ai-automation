@@ -46,7 +46,11 @@
   </main>
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <span>&copy; {{ current_year }} {{ site_name }}</span>
+      <a class="footer-brand" href="/" aria-label="{{ site_name }} home">
+        <img src="/static/logo.svg" alt="" width="30" height="30">
+        <span>&copy; {{ current_year }} {{ site_name }}</span>
+      </a>
+      <span>Independent stories, thoughtfully told.</span>
     </div>
   </footer>
 </body>

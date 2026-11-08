@@ -1,15 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<header class="section">
-  <p class="eyebrow">{{ taxonomy }}</p>
-  <h1>{{ heading }}</h1>
-  <p>Published articles about {{ heading }}.</p>
+<header class="taxonomy-hero">
+  <div class="taxonomy-copy">
+    <p class="section-kicker">{{ taxonomy }} <span>·</span> {{ taxonomy_count }} stories</p>
+    <h1>{{ heading }}</h1>
+    <p>A considered collection of Firstread stories, guides and fresh perspectives on {{ heading|lower }}.</p>
+  </div>
+  {% if posts %}
+  <img class="taxonomy-image" src="{{ posts[0].image_src }}" alt="" width="1200" height="630">
+  {% endif %}
 </header>
 <div class="post-grid">
   {% for post in posts %}
   <article class="card">
-    <a class="card-image" href="/{{ post.slug }}/"><img src="{{ post.thumbnail }}" alt="" width="400" height="210" loading="lazy"></a>
-    <div class="card-body"><h2><a href="/{{ post.slug }}/">{{ post.title }}</a></h2><p>{{ post.meta_description }}</p><p class="muted">{{ post.date }} · {{ post.reading_time }} min read</p></div>
+    <a class="card-image" href="/{{ post.slug }}/" aria-label="Read {{ post.title }}">
+      <img src="{{ post.thumbnail }}" alt="" width="400" height="210" loading="lazy">
+      <span class="card-arrow" aria-hidden="true">↗</span>
+    </a>
+    <div class="card-body">
+      <p class="story-kicker">{{ post.category }} <span>·</span> {{ post.date }}</p>
+      <h2><a href="/{{ post.slug }}/">{{ post.title }}</a></h2>
+      <p class="card-description">{{ post.meta_description }}</p>
+      <p class="read-time">{{ post.reading_time }} min read</p>
+    </div>
   </article>
   {% endfor %}
 </div>

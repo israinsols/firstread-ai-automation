@@ -121,9 +121,16 @@ def test_build_contains_only_published_posts_and_valid_seo(tmp_path):
     category_html = (public / "category" / "technology" / "index.html").read_text(
         encoding="utf-8"
     )
+    assert 'class="taxonomy-image"' in category_html
+    assert 'src="/images/' in category_html
     assert "<nav" not in category_html
     about_html = (public / "about" / "index.html").read_text(encoding="utf-8")
+    assert 'class="page-illustration" src="/static/editorial-still-life.svg"' in about_html
     assert "<nav" not in about_html
+    assert (public / "static" / "editorial-still-life.svg").is_file()
+    assert 'class="section related-section"' in post_html
+    assert 'class="card-image"' in post_html
+    assert "footer-brand" in post_html
     assert '<img src="/static/logo.svg" alt="" width="42" height="42">' in home_html
     assert (public / "static" / "logo.svg").is_file()
     assert "firstread.co.uk" in (public / "CNAME").read_text(encoding="utf-8")
